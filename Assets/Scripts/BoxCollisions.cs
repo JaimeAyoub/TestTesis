@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.AI;
 
 public class BoxCollisions : MonoBehaviour
 {
@@ -17,8 +18,21 @@ public class BoxCollisions : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Enemy"))
-        {
+        {   
+           //AddImpulse(other.gameObject);
             GameManager.instance.AddCombo();
         }
+    }
+
+    private void AddImpulse(GameObject target)
+    {
+        if (target)
+        {
+            target.GetComponent<NavMeshAgent>().enabled = false;
+            target.GetComponent<Rigidbody>().AddForce(new Vector3(0.0f,20.0f,0.0f), ForceMode.Impulse);
+            Debug.Log("AddImpulse");
+        }
+        else 
+            Debug.Log("No target");
     }
 }

@@ -10,7 +10,7 @@ public class PlayerCombat : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+        box1.gameObject.SetActive(false);
     }
 
     // Update is called once per frame

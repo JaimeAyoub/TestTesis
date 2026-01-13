@@ -4,7 +4,9 @@ using UnityEngine.AI;
 public class Enemy : MonoBehaviour
 {
     private NavMeshAgent m_Agent;
+
     public GameObject Player;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -19,22 +21,11 @@ public class Enemy : MonoBehaviour
 
     void FollowPlayer()
     {
-        if (Player != null)
+        if (Player && m_Agent.enabled)
         {
-                m_Agent.SetDestination(Player.transform.position);
-            Debug.Log(m_Agent.remainingDistance);
-            if (m_Agent.remainingDistance > 1.5f)
-            {
-                m_Agent.speed = 2.0f;
-            }
-            else
-                m_Agent.speed = 0.0f;
-
-           
+            m_Agent.SetDestination(Player.transform.position);
         }
         else
             Debug.LogWarning("No hay player");
-     
-     
     }
 }

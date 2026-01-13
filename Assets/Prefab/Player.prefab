@@ -12,9 +12,9 @@ GameObject:
   - component: {fileID: 5869137018033626569}
   - component: {fileID: 1393929991115476873}
   - component: {fileID: 4711716011601264207}
+  - component: {fileID: 6272769795050606492}
   - component: {fileID: 6941837365557057545}
   - component: {fileID: 3184952031587322416}
-  - component: {fileID: 6272769795050606492}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -108,6 +108,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerCombat
   box1: {fileID: 8136952901287622537}
+--- !u!114 &6272769795050606492
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2619382746394606766}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 40a0c66d58086fc45aece8b81c45eac0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerMovement
+  moveVector: {x: 0, y: 0, z: 0}
+  speed: 2
 --- !u!136 &6941837365557057545
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -158,20 +172,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 1
---- !u!114 &6272769795050606492
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2619382746394606766}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 40a0c66d58086fc45aece8b81c45eac0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PlayerMovement
-  moveVector: {x: 0, y: 0, z: 0}
-  speed: 2
 --- !u!1 &3462804655730886745
 GameObject:
   m_ObjectHideFlags: 0
