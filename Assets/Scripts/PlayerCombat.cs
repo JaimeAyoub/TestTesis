@@ -26,4 +26,5 @@ public class PlayerCombat : MonoBehaviour
         }else if(Input.GetMouseButtonUp(0))
             box1.gameObject.SetActive(false);
     }
+
 }

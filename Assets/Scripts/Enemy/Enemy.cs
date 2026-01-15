@@ -7,16 +7,21 @@ public class Enemy : MonoBehaviour
 
     public GameObject Player;
 
+    private EnemyAttack enemyAttack;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         m_Agent = GetComponent<NavMeshAgent>();
+        enemyAttack = GetComponent<EnemyAttack>();
     }
 
     // Update is called once per frame
     void Update()
     {
         FollowPlayer();
+        CheckAttack();
+          
     }
 
     void FollowPlayer()
@@ -25,7 +30,15 @@ public class Enemy : MonoBehaviour
         {
             m_Agent.SetDestination(Player.transform.position);
         }
-        else
-            Debug.LogWarning("No hay player");
+       
+    }
+
+    void CheckAttack()
+    {
+        if (m_Agent.remainingDistance <= 2)
+        {
+           // Debug.Log("Ataque");
+            enemyAttack.Attack();
+        }
     }
 }

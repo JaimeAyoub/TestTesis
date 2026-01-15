@@ -22,6 +22,19 @@ public class BoxCollisions : MonoBehaviour
            //AddImpulse(other.gameObject);
             GameManager.instance.AddCombo();
         }
+        if(other.CompareTag("Parry"))
+        {
+            PlayerMovement player = FindAnyObjectByType<PlayerMovement>();
+            if (player != null) {
+   
+                
+                player.GetComponent<Rigidbody>().AddForce(player.transform.forward.x, player.transform.forward.y, player.transform.forward.z * -220.0f, ForceMode.Impulse);
+
+            }
+            Debug.Log("PARRYYYY!");
+
+
+        }
     }
 
     private void AddImpulse(GameObject target)
