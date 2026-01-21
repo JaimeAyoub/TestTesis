@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
 
@@ -5,10 +6,11 @@ public class GameManager : MonoBehaviour
 {
 
 
+    public static GameManager instance;
     public int currentCombo = 0;
     public float currentMultiplier = 1;
+    public TextMeshProUGUI comboNumberText;
 
-    public static GameManager instance;
     private void Awake()
     {
         if (instance != null)
@@ -22,7 +24,8 @@ public class GameManager : MonoBehaviour
     }
     void Start()
     {
-        
+        if (comboNumberText != null)
+            comboNumberText.text = currentCombo.ToString();
     }
 
     // Update is called once per frame
@@ -35,6 +38,7 @@ public class GameManager : MonoBehaviour
     {
         currentCombo++;
         currentMultiplier = Formula(currentCombo);
+        comboNumberText.text = currentCombo.ToString();
 
     }
 

@@ -54,7 +54,6 @@ public class BoxCollisions : MonoBehaviour
     {
         if (!gameObject.activeSelf) return;
         timeTurnOn += Time.deltaTime;
-        Debug.Log("tiempo activado" + timeTurnOn);
         if (timeTurnOn > timeToTurnOff)
         {
             timeTurnOn = 0.0f;

@@ -53,8 +53,6 @@ public class PlayerCombat : MonoBehaviour
 
     void CheckAttackTimer()
     {
-        float resta = Time.time - lastTimeAttack;
-        Debug.Log(resta);
         if ((Time.time - lastTimeAttack) > timeToAddCombo) //Reseteo de contador de combo
         {
             attackCounter = 0;
