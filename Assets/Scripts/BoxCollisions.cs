@@ -21,8 +21,12 @@ public class BoxCollisions : MonoBehaviour
     {
         if (other.CompareTag("Enemy"))
         {
+            EnemyHealth enemyHealth = other.GetComponent<EnemyHealth>();
             //AddImpulse(other.gameObject);
+            if (enemyHealth)
+                enemyHealth.TakeDamage(1);
             GameManager.instance.AddCombo();
+            GameManager.instance.AddToTimer(1.0f);
         }
 
         if (other.CompareTag("Parry"))
