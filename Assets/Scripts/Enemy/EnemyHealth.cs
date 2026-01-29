@@ -3,9 +3,10 @@ using DG.Tweening;
 
 public class EnemyHealth : MonoBehaviour
 {
-    private int maxHealth = 10;
+    private int maxHealth = 50;
     public int currentHealth = 0;
     private Tween damageTween;
+
 
     void Start()
     {
@@ -29,10 +30,10 @@ public class EnemyHealth : MonoBehaviour
             damageTween = this.gameObject.transform.DOShakeRotation(0.5f, 10.0f);
 
             currentHealth -= damage;
-        }
-        else
-        {
-            Death();
+            if (currentHealth <= 0)
+            {
+                Death();
+            }
         }
     }
 

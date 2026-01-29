@@ -21,12 +21,18 @@ public class BoxCollisions : MonoBehaviour
     {
         if (other.CompareTag("Enemy"))
         {
-            EnemyHealth enemyHealth = other.GetComponent<EnemyHealth>();
-            //AddImpulse(other.gameObject);
-            if (enemyHealth)
-                enemyHealth.TakeDamage(1);
             GameManager.instance.AddCombo();
             GameManager.instance.AddToTimer(1.0f);
+            EnemyHealth enemyHealth = other.GetComponent<EnemyHealth>();
+            EnemyInking enemyInking = other.GetComponent<EnemyInking>();
+            //AddImpulse(other.gameObject);
+            if (enemyHealth && enemyInking)
+            {
+                enemyHealth.TakeDamage(1);
+                enemyInking.AddInk(GameManager.instance.currentMultiplier);
+            }
+            
+
         }
 
         if (other.CompareTag("Parry"))
