@@ -21,12 +21,17 @@ public class EnemyInking : MonoBehaviour
     {
     }
 
-   public void AddInk(float inkToAdd)
+    public void AddInk(float inkToAdd)
     {
         if (amountOfInk < _inkForDeath)
         {
             amountOfInk += inkToAdd;
-            GetComponent<MeshRenderer>().material.SetFloat("_Radius", amountOfInk/_inkForDeath);
+            SkinnedMeshRenderer skinnedMeshRenderer = GetComponentInChildren<SkinnedMeshRenderer>();
+            if (skinnedMeshRenderer)
+            {
+                skinnedMeshRenderer.material.SetFloat("_AmountOfInk", (amountOfInk / _inkForDeath)/100);
+            }
+
             if (amountOfInk >= _inkForDeath)
             {
                 InkDeath();
@@ -36,16 +41,8 @@ public class EnemyInking : MonoBehaviour
 
     void InkDeath()
     {
-
-     
-       s deathEffect.SendEvent("OnPlay");
+        deathEffect.SendEvent("OnPlay");
 
         this.transform.DOScale(Vector3.zero, 0.3f);
-
-
-
-
-
-
     }
 }
