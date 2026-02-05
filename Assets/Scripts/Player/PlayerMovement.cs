@@ -7,8 +7,8 @@ public class PlayerMovement : MonoBehaviour
     private Rigidbody _rb;
     public Vector3 moveVector;
     public float speed;
-
     public float targetAngle;
+    public Animator animator;
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -16,6 +16,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (_rb == null)
             _rb = GetComponent<Rigidbody>();
+        animator = GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -29,8 +30,12 @@ public class PlayerMovement : MonoBehaviour
         moveVector.x = Input.GetAxisRaw("Horizontal");
         moveVector.z = Input.GetAxisRaw("Vertical");
         _rb.linearVelocity = moveVector * speed;
-
-        if (moveVector == Vector3.zero) return;
+        animator.SetBool("isWalking", true);
+        if (moveVector == Vector3.zero)
+        {
+            animator.SetBool("isWalking", false);
+            return;
+        }
         targetAngle = Mathf.Atan2(moveVector.x, moveVector.z) * Mathf.Rad2Deg;
         transform.rotation = Quaternion.Euler(0f, targetAngle, 0f);
     }

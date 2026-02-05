@@ -41,8 +41,11 @@ public class EnemyInking : MonoBehaviour
 
     void InkDeath()
     {
-        deathEffect.SendEvent("OnPlay");
+            Sequence s = DOTween.Sequence();
+            s.Append(this.transform.DOScale(Vector3.zero, 0.05f))
+                .AppendCallback(() => deathEffect.SendEvent("OnPlay"))
+                .OnComplete(() => Destroy(this.gameObject));
 
-        this.transform.DOScale(Vector3.zero, 0.3f);
+      
     }
 }

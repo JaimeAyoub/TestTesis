@@ -3,7 +3,7 @@ using DG.Tweening;
 
 public class EnemyHealth : MonoBehaviour
 {
-    private int maxHealth = 50;
+    private int maxHealth = 500;
     public int currentHealth = 0;
     private Tween damageTween;
 
@@ -27,7 +27,7 @@ public class EnemyHealth : MonoBehaviour
                 damageTween.Kill();
             }
 
-            damageTween = this.gameObject.transform.DOShakeRotation(0.5f, 10.0f);
+            // damageTween = this.gameObject.transform.DOShakeRotation(0.5f, 10.0f);
 
             currentHealth -= damage;
             if (currentHealth <= 0)
@@ -39,6 +39,6 @@ public class EnemyHealth : MonoBehaviour
 
     void Death()
     {
-        this.transform.DOScale(Vector3.zero, 0.1f).OnComplete(() => Destroy(this.gameObject));
+        this.transform.DOScale(Vector3.zero, 0.05f).OnComplete(() => Destroy(this.gameObject));
     }
 }

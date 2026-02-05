@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -13,6 +14,8 @@ public class PlayerCombat : MonoBehaviour
     private float timeToAddCombo = 0.5f;
 
     public GameObject[] hitboxes;
+
+    List <InputActionType> inputBuffer = new  List <InputActionType>();
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
