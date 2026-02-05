@@ -15,12 +15,17 @@ public class PlayerCombat : MonoBehaviour
 
     public GameObject[] hitboxes;
 
+    public bool isPunching = false;
+
     List <InputActionType> inputBuffer = new  List <InputActionType>();
+
+    public Animator animator;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         DisableAllHitBoxes();
+        animator = GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -33,7 +38,8 @@ public class PlayerCombat : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
-            CheckAttackTimer();
+            setPunch();
+  
         }
     }
 
@@ -80,5 +86,12 @@ public class PlayerCombat : MonoBehaviour
             if (go == hitbox) continue;
             go.SetActive(false);
         }
+    }
+
+    public void setPunch()
+    {
+        isPunching = !isPunching;
+        animator.SetBool("isPunching", isPunching);
+
     }
 }

@@ -119,72 +119,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1 &4326625
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 4326626}
-  - component: {fileID: 4326628}
-  - component: {fileID: 4326627}
-  m_Layer: 0
-  m_Name: Collider
-  m_TagString: Untagged
-  m_Icon: {fileID: 4422084297763085224, guid: 0000000000000000d000000000000000, type: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &4326626
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4326625}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.00078, y: 0.00442, z: -0.00034}
-  m_LocalScale: {x: 0.009417723, y: 0.009417723, z: 0.009417723}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1853154519348016467}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4326627
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4326625}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 02bd264413529aa4e93b296b3c0e1254, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::BoxCollisions
---- !u!65 &4326628
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4326625}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1, y: 1.8034996, z: 1}
-  m_Center: {x: -0.000000027628406, y: -0.401752, z: -0.000000026433494}
 --- !u!1 &69993014
 GameObject:
   m_ObjectHideFlags: 0
@@ -264,7 +198,7 @@ GameObject:
   m_Component:
   - component: {fileID: 131799833}
   - component: {fileID: 131799834}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: BoxCollisions
   m_TagString: Parry
   m_Icon: {fileID: 0}
@@ -1172,7 +1106,7 @@ GameObject:
   - component: {fileID: 689832292}
   - component: {fileID: 689832298}
   - component: {fileID: 689832297}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Enemy
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -1883,7 +1817,7 @@ GameObject:
   - component: {fileID: 1250741894}
   - component: {fileID: 1250741897}
   - component: {fileID: 1250741896}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2110,7 +2044,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1419009515}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Collisions
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3317,7 +3251,6 @@ Transform:
   - {fileID: 3261669934860914985}
   - {fileID: 7903652569269356680}
   - {fileID: 3733836540295639288}
-  - {fileID: 4326626}
   m_Father: {fileID: 2570691636282345810}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &2036106538865570627
@@ -4071,9 +4004,10 @@ GameObject:
   - component: {fileID: 5247672785744115230}
   - component: {fileID: 5247672785744115229}
   - component: {fileID: 5247672785744115231}
+  - component: {fileID: 5247672785744115232}
   m_Layer: 0
   m_Name: PlayerModel
-  m_TagString: Enemy
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4246,6 +4180,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerCombat
   attackCounter: 0
   hitboxes: []
+  isPunching: 0
+  animator: {fileID: 0}
 --- !u!54 &5247672785744115231
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -4273,6 +4209,23 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 116
   m_CollisionDetection: 0
+--- !u!114 &5247672785744115232
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4870830141501303971}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 187590048aede9446a91bdc0435b3871, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::HitBoxesGenerator
+  foreArmLeft: {fileID: 6295060782616382724}
+  leftHand: {fileID: 6593562435915420937}
+  layermask:
+    serializedVersion: 2
+    m_Bits: 64
 --- !u!1001 &5300707057128074827
 PrefabInstance:
   m_ObjectHideFlags: 0
