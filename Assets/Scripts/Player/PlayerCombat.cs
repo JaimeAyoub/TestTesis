@@ -13,18 +13,17 @@ public class PlayerCombat : MonoBehaviour
     private float lastTimeAttack = 0.0f;
     private float timeToAddCombo = 0.5f;
 
-    public GameObject[] hitboxes;
 
     public bool isPunching = false;
 
-    List <InputActionType> inputBuffer = new  List <InputActionType>();
+
+    public List<KeyCode> inputBuffer = new List<KeyCode>();
 
     public Animator animator;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        DisableAllHitBoxes();
         animator = GetComponent<Animator>();
     }
 
@@ -32,66 +31,92 @@ public class PlayerCombat : MonoBehaviour
     void Update()
     {
         Inputs();
+        if (Input.GetKeyDown(KeyCode.L)) // Solo para testear.
+        {
+            inputBuffer.Clear();
+        }
     }
 
     void Inputs()
     {
         if (Input.GetMouseButtonDown(0))
         {
-            setPunch();
-  
+            addToInputBuffer();
+            if (!isPunching)
+                SetPunchToTrue();
         }
     }
 
-    void Combos(int index)
+
+    public void SetPunchToFalse()
     {
-        if (index < hitboxes.Length)
-        {
-            DisableHitboxesExcept(hitboxes[index]);
-            hitboxes[index].SetActive(true);
-        }
+        isPunching = false;
+        attackCounter = 0;
+        animator.SetBool("isPunching", isPunching);
+        
+        
     }
 
-    void DisableAllHitBoxes()
+    public void SetPunchToTrue()
     {
-        foreach (GameObject go in hitboxes)
-        {
-            go.SetActive(false);
-        }
+        isPunching = true;
+        attackCounter++;
+        animator.SetInteger("attackCounter",attackCounter);
+        animator.SetBool("isPunching", isPunching);
     }
 
-    void CheckAttackTimer()
+
+    public void CheckInputBuffer()
     {
-        if ((Time.time - lastTimeAttack) > timeToAddCombo) //Reseteo de contador de combo
+        if (inputBuffer.Count > 0)
         {
-            attackCounter = 0;
-            lastTimeAttack = Time.time;
+            SetPunchToTrue();
+            inputBuffer.Clear();
+            
         }
         else
         {
-            // Debug.Log("Se agrega combo");
-            attackCounter++;
-        }
-
-        if (attackCounter >= hitboxes.Length)
-            attackCounter = 0;
-        lastTimeAttack = Time.time;
-        Combos(attackCounter);
-    }
-
-    void DisableHitboxesExcept(GameObject hitbox)
-    {
-        foreach (GameObject go in hitboxes)
-        {
-            if (go == hitbox) continue;
-            go.SetActive(false);
+            SetPunchToFalse();
+      
         }
     }
 
-    public void setPunch()
+    public void addToInputBuffer()
     {
-        isPunching = !isPunching;
-        animator.SetBool("isPunching", isPunching);
-
+        if (isPunching && inputBuffer.Count == 0)
+            inputBuffer.Add(KeyCode.Mouse0);
     }
+
+
+    //Sistema de combos sin las animaciones.
+
+    // void Combos(int index)
+    // {
+    //     if (index < hitboxes.Length)
+    //     {
+    //         DisableHitboxesExcept(hitboxes[index]);
+    //         hitboxes[index].SetActive(true);
+    //     }
+    // }
+    //
+    //
+    //
+    // void CheckAttackTimer()
+    // {
+    //     if ((Time.time - lastTimeAttack) > timeToAddCombo) //Reseteo de contador de combo
+    //     {
+    //         attackCounter = 0;
+    //         lastTimeAttack = Time.time;
+    //     }
+    //     else
+    //     {
+    //         // Debug.Log("Se agrega combo");
+    //         attackCounter++;
+    //     }
+    //
+    //     if (attackCounter >= hitboxes.Length)
+    //         attackCounter = 0;
+    //     lastTimeAttack = Time.time;
+    //     Combos(attackCounter);
+    // }
 }
