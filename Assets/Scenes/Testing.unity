@@ -1111,7 +1111,7 @@ Transform:
   m_GameObject: {fileID: 689832287}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.00088, y: 1, z: 4.83}
+  m_LocalPosition: {x: 2.0009, y: 0.838, z: 4.83}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -3670,7 +3670,6 @@ MonoBehaviour:
   rightLeg:
   - {fileID: 7253632673077992828}
   - {fileID: 5012206521655733298}
-  hitColliders: []
   layermask:
     serializedVersion: 2
     m_Bits: 64
