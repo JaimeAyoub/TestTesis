@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class HitBoxesGenerator : MonoBehaviour
@@ -6,6 +7,7 @@ public class HitBoxesGenerator : MonoBehaviour
     public GameObject[] rightArm;
     public GameObject[] leftLeg;
     public GameObject[] rightLeg;
+   public List<GameObject> limbsChosen = new List<GameObject>();
 
 
     [SerializeField] private LayerMask layermask;
@@ -18,11 +20,13 @@ public class HitBoxesGenerator : MonoBehaviour
         rightLeg,
     }
 
-    Limbs _chooseLimbs;
+   public Limbs _chooseLimbs;
 
     void Start()
     {
         layermask = LayerMask.GetMask("Enemy");
+        limbsChosen.Clear();
+ 
     }
 
     // Update is called once per frame
@@ -32,14 +36,16 @@ public class HitBoxesGenerator : MonoBehaviour
 
     public void Generate(Limbs limb)
     {
-        GameObject[] limbsChosen = new GameObject[2];
-        switch (_chooseLimbs)
+ 
+  
+        switch (limb)
         {
             case Limbs.leftArm:
                 if (leftArm.Length > 0)
                 {
-                    limbsChosen[0] = leftArm[0];
-                    limbsChosen[1] = leftArm[1];
+                    limbsChosen.Add(leftArm[0]);
+                    limbsChosen.Add(leftArm[1]);
+           
                 }
                 else
                 {
@@ -49,9 +55,9 @@ public class HitBoxesGenerator : MonoBehaviour
                 break;
             case Limbs.rightArm:
                 if (rightArm.Length > 0)
-                {
-                    limbsChosen[0] = rightArm[0];
-                    limbsChosen[1] = rightArm[1];
+                { 
+                    limbsChosen.Add(rightArm[0]);
+                    limbsChosen.Add(rightArm[1]);
                 }
                 else
                 {
@@ -87,7 +93,7 @@ public class HitBoxesGenerator : MonoBehaviour
                 break;
         }
 
-        if (limbsChosen.Length > 0)
+        if (limbsChosen.Count > 0)
         {
             Collider[] hitColliders = Physics.OverlapCapsule(limbsChosen[0].transform.position,
                 limbsChosen[1].transform.position, 0.5f, layermask);
@@ -100,6 +106,8 @@ public class HitBoxesGenerator : MonoBehaviour
                     Debug.Log(collider.name);
                 }
             }
+          limbsChosen.Clear();
+
         }
         else
         {
