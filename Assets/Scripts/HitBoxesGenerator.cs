@@ -7,7 +7,7 @@ public class HitBoxesGenerator : MonoBehaviour
     public GameObject[] rightArm;
     public GameObject[] leftLeg;
     public GameObject[] rightLeg;
-   public List<GameObject> limbsChosen = new List<GameObject>();
+    public List<GameObject> limbsChosen = new List<GameObject>();
 
 
     [SerializeField] private LayerMask layermask;
@@ -20,13 +20,12 @@ public class HitBoxesGenerator : MonoBehaviour
         rightLeg,
     }
 
-   public Limbs _chooseLimbs;
+    public Limbs _chooseLimbs;
 
     void Start()
     {
         layermask = LayerMask.GetMask("Enemy");
         limbsChosen.Clear();
- 
     }
 
     // Update is called once per frame
@@ -36,8 +35,6 @@ public class HitBoxesGenerator : MonoBehaviour
 
     public void Generate(Limbs limb)
     {
- 
-  
         switch (limb)
         {
             case Limbs.leftArm:
@@ -45,7 +42,6 @@ public class HitBoxesGenerator : MonoBehaviour
                 {
                     limbsChosen.Add(leftArm[0]);
                     limbsChosen.Add(leftArm[1]);
-           
                 }
                 else
                 {
@@ -55,7 +51,7 @@ public class HitBoxesGenerator : MonoBehaviour
                 break;
             case Limbs.rightArm:
                 if (rightArm.Length > 0)
-                { 
+                {
                     limbsChosen.Add(rightArm[0]);
                     limbsChosen.Add(rightArm[1]);
                 }
@@ -104,10 +100,15 @@ public class HitBoxesGenerator : MonoBehaviour
                 foreach (Collider collider in hitColliders)
                 {
                     Debug.Log(collider.name);
+                    if (collider.CompareTag("Enemy"))
+                    {
+                       // collider.GetComponent<EnemyHealth>().TakeDamage(1);
+                       collider.GetComponent<EnemyInking>().AddInk(25.0f);
+                    }
                 }
             }
-          limbsChosen.Clear();
 
+            limbsChosen.Clear();
         }
         else
         {

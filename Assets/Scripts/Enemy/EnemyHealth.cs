@@ -6,11 +6,13 @@ public class EnemyHealth : MonoBehaviour
     private int maxHealth = 500;
     public int currentHealth = 0;
     private Tween damageTween;
+    private Animator anim;
 
 
     void Start()
     {
         currentHealth = maxHealth;
+        anim = GetComponent<Animator>();
     }
 
 
@@ -22,6 +24,7 @@ public class EnemyHealth : MonoBehaviour
     {
         if (currentHealth > 0)
         {
+            anim.SetTrigger("HitTrigger");
             if (damageTween != null && damageTween.IsPlaying())
             {
                 damageTween.Kill();

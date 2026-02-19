@@ -30,6 +30,14 @@ public class PlayerCombat : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (attackCounter > 3)
+        {
+            attackCounter = 0;
+            animator.SetBool("isPunching", false);
+            animator.SetInteger("attackCounter", attackCounter);
+            isPunching = false;
+        }
+
         Inputs();
         if (Input.GetKeyDown(KeyCode.L)) // Solo para testear.
         {
@@ -53,15 +61,17 @@ public class PlayerCombat : MonoBehaviour
         isPunching = false;
         attackCounter = 0;
         animator.SetBool("isPunching", isPunching);
-        
-        
+        animator.SetInteger("attackCounter", attackCounter);
     }
 
     public void SetPunchToTrue()
     {
         isPunching = true;
+
         attackCounter++;
-        animator.SetInteger("attackCounter",attackCounter);
+        animator.SetInteger("attackCounter", attackCounter);
+
+
         animator.SetBool("isPunching", isPunching);
     }
 
@@ -72,12 +82,10 @@ public class PlayerCombat : MonoBehaviour
         {
             SetPunchToTrue();
             inputBuffer.Clear();
-            
         }
         else
         {
             SetPunchToFalse();
-      
         }
     }
 
