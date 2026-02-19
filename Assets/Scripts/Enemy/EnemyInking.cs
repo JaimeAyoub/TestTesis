@@ -8,12 +8,14 @@ public class EnemyInking : MonoBehaviour
     public float amountOfInk = 0.0f;
     private float _inkForDeath = 50.0f;
     public VisualEffect deathEffect;
+    private Animator anim;
     //Aqui tendira que pasarle el shader y qye el amount of ink sea el que diga cuanto "manche" al enemigo.
 
 
     void Start()
     {
         deathEffect = GetComponent<VisualEffect>();
+        anim = GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -25,6 +27,7 @@ public class EnemyInking : MonoBehaviour
     {
         if (amountOfInk < _inkForDeath)
         {
+            anim.SetTrigger("HitTrigger");
             amountOfInk += inkToAdd;
             SkinnedMeshRenderer skinnedMeshRenderer = GetComponentInChildren<SkinnedMeshRenderer>();
             if (skinnedMeshRenderer)
