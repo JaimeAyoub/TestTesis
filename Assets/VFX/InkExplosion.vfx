@@ -2130,7 +2130,7 @@ MonoBehaviour:
   - {fileID: 8926484042661617365}
   - {fileID: 8926484042661617369}
   m_UIPosition: {x: 0, y: 0}
-  m_UICollapsed: 1
+  m_UICollapsed: 0
   m_UISuperCollapsed: 0
   m_MasterSlot: {fileID: 8926484042661617364}
   m_MasterData:

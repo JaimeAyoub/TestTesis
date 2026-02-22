@@ -97,8 +97,10 @@ public class HitBoxesGenerator : MonoBehaviour
 
             if (hitColliders.Length > 0)
             {
-                CombatManager.instance.FreezeOnHit();
+                Debug.Log(hitColliders.Length);
+                //CombatManager.instance.FreezeOnHit();
                 CombatManager.instance.CameraShake();
+                CombatManager.instance.SpawnHitVFX(limbsChosen[1].transform.position);
                 foreach (Collider collider in hitColliders)
                 {
                     Debug.Log(collider.name);
@@ -118,14 +120,14 @@ public class HitBoxesGenerator : MonoBehaviour
         }
     }
 
-    private void OnDrawGizmos()
-    {
-        Gizmos.color = Color.green;
-
-        Gizmos.DrawSphere(leftArm[0].transform.position, 0.50f);
-        Gizmos.DrawSphere(leftArm[1].transform.position, 0.50f);
-
-        Gizmos.DrawSphere(rightArm[0].transform.position, 0.50f);
-        Gizmos.DrawSphere(rightArm[1].transform.position, 0.50f);
-    }
+    // private void OnDrawGizmos()
+    // {
+    //     Gizmos.color = Color.green;
+    //
+    //     Gizmos.DrawSphere(leftArm[0].transform.position, 0.50f);
+    //     Gizmos.DrawSphere(leftArm[1].transform.position, 0.50f);
+    //
+    //     Gizmos.DrawSphere(rightArm[0].transform.position, 0.50f);
+    //     Gizmos.DrawSphere(rightArm[1].transform.position, 0.50f);
+    // }
 }
