@@ -1,0 +1,5 @@
+0.2 -- ShakeTimer
+0.08 -- Intesidad del shake	
+4 -- Amplitud
+
+0.05 -- Time freeze

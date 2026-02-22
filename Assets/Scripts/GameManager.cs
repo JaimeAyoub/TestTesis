@@ -11,10 +11,13 @@ public class GameManager : MonoBehaviour
     public float currentMultiplier = 1;
     public TextMeshProUGUI comboNumberText;
 
+    public GameObject enemyObject;
+
     public float timeToResetCombo = 0.0f;
     private float maxTimeToResetCombo = 10.0f;
     public Slider timeSlider;
 
+    public Transform spawnEnemyPoint;
     private void Awake()
     {
         if (instance != null)
@@ -36,7 +39,9 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        CheckTimer();
+      //  CheckTimer();
+        if(Input.GetKeyDown(KeyCode.P))
+            SpawnEnemy();
     }
 
     public void AddCombo()
@@ -78,5 +83,10 @@ public class GameManager : MonoBehaviour
     {
         if (timeToResetCombo < maxTimeToResetCombo)
             timeToResetCombo += timeToAdd;
+    }
+
+    public void SpawnEnemy()
+    {
+        Instantiate(enemyObject, spawnEnemyPoint.transform.position, Quaternion.identity);
     }
 }

@@ -97,6 +97,8 @@ public class HitBoxesGenerator : MonoBehaviour
 
             if (hitColliders.Length > 0)
             {
+                CombatManager.instance.FreezeOnHit();
+                CombatManager.instance.CameraShake();
                 foreach (Collider collider in hitColliders)
                 {
                     Debug.Log(collider.name);
