@@ -2,6 +2,7 @@ using UnityEngine;
 using System.Threading.Tasks;
 using Unity.Cinemachine;
 using UnityEngine.VFX;
+using Unity.VisualScripting;
 
 public class CombatManager : MonoBehaviour
 {
@@ -64,15 +65,22 @@ public class CombatManager : MonoBehaviour
         noise.FrequencyGain = 0;
     }
 
-    public void SpawnHitVFX(Vector3 position)
+    public void SpawnHitVFX(Vector3 position,float rotation)
     {
         if (hitVFX != null)
         {
-            VisualEffect vfx = Instantiate(hitVFX, position, Quaternion.identity);
-            Debug.Log(position);
-            vfx.SetVector3("Angle",Player.transform.eulerAngles);
+            VisualEffect vfx = Instantiate(hitVFX, position,Quaternion.identity);
+
+            //Debug.Log(position);
+            // rotation = Mathf.Deg2Rad * rotation;
+            Vector3 newTarget = new Vector3(Player.transform.position.x, 
+                vfx.gameObject.transform.position.y, Player.transform.position.z);
+           vfx.gameObject.transform.LookAt(newTarget);
+            //vfx.SetFloat("AngleFloat", rotation);
+          //  vfx.SetVector3("Angle",rotation);
             vfx.SendEvent("OnPlay");
-            Destroy(vfx,2.0f);
+            Destroy(vfx.gameObject,2.0f);
+
         }
         else
         {

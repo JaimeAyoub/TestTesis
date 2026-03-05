@@ -8,6 +8,8 @@ public class HitBoxesGenerator : MonoBehaviour
     public GameObject[] leftLeg;
     public GameObject[] rightLeg;
     public List<GameObject> limbsChosen = new List<GameObject>();
+    public Vector3 closestPoint;
+    public Transform impactLimb;
 
 
     [SerializeField] private LayerMask layermask;
@@ -98,17 +100,34 @@ public class HitBoxesGenerator : MonoBehaviour
             if (hitColliders.Length > 0)
             {
                 Debug.Log(hitColliders.Length);
-                CombatManager.instance.FreezeOnHit();
-                CombatManager.instance.CameraShake();
-                CombatManager.instance.SpawnHitVFX(limbsChosen[1].transform.position);
-                GameManager.instance.AddCombo();
+
                 foreach (Collider collider in hitColliders)
                 {
-                    Debug.Log(collider.name);
+                    impactLimb = limbsChosen[1].transform;
+
+
                     if (collider.CompareTag("Enemy"))
                     {
-                       // collider.GetComponent<EnemyHealth>().TakeDamage(1);
-                       collider.GetComponent<EnemyInking>().AddInk(25.0f);
+                     
+                        // collider.GetComponent<EnemyHealth>().TakeDamage(1);
+                        closestPoint = collider.ClosestPoint(impactLimb.position);
+                        Vector3 resta = impactLimb.position - closestPoint;
+                        resta.Normalize();
+                        float angle = Vector3.Angle(collider.transform.forward, resta);
+                        Debug.Log("Angulo: " + angle);
+
+                        Vector3 rot = Vector3.RotateTowards(
+                        impactLimb.position,
+                        closestPoint,
+                        1.0f * Time.deltaTime,
+                        0.0f
+                            );
+
+                        collider.GetComponent<EnemyInking>().AddInk(25.0f);
+                        CombatManager.instance.FreezeOnHit();
+                        CombatManager.instance.CameraShake();
+                       CombatManager.instance.SpawnHitVFX(closestPoint, rot.y);
+                        GameManager.instance.AddCombo();
                     }
                 }
             }
@@ -121,14 +140,12 @@ public class HitBoxesGenerator : MonoBehaviour
         }
     }
 
-    // private void OnDrawGizmos()
-    // {
-    //     Gizmos.color = Color.green;
-    //
-    //     Gizmos.DrawSphere(leftArm[0].transform.position, 0.50f);
-    //     Gizmos.DrawSphere(leftArm[1].transform.position, 0.50f);
-    //
-    //     Gizmos.DrawSphere(rightArm[0].transform.position, 0.50f);
-    //     Gizmos.DrawSphere(rightArm[1].transform.position, 0.50f);
-    // }
+    private void OnDrawGizmos()
+    {
+    
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawSphere (closestPoint, 0.1f);
+        Gizmos.DrawWireSphere(closestPoint, 0.1f);
+
+    }
 }
