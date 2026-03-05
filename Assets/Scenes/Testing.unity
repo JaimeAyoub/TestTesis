@@ -1739,7 +1739,7 @@ MonoBehaviour:
   shakeTimer: 0.2
   intensityCameraShake: 0.04
   amplitudeCameraShake: 4
-  timeFreeze: 0.05
+  timeFreeze: 0.03
   hitVFX: {fileID: 559135837}
 --- !u!4 &1666931812
 Transform:
