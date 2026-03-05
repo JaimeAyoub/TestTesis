@@ -9,6 +9,7 @@ public class PlayerMovement : MonoBehaviour
     public float speed;
     public float targetAngle;
     public Animator animator;
+    private PlayerCombat playerCombat;
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -17,6 +18,10 @@ public class PlayerMovement : MonoBehaviour
         if (_rb == null)
             _rb = GetComponent<Rigidbody>();
         animator = GetComponent<Animator>();
+        if (playerCombat == null)
+        {
+            playerCombat = GetComponent<PlayerCombat>();
+        }
     }
 
     // Update is called once per frame
@@ -27,16 +32,27 @@ public class PlayerMovement : MonoBehaviour
 
     void MoveAndRotate()
     {
-        moveVector.x = Input.GetAxisRaw("Horizontal");
-        moveVector.z = Input.GetAxisRaw("Vertical");
-        _rb.linearVelocity = moveVector * speed;
-        animator.SetBool("isWalking", true);
-        if (moveVector == Vector3.zero)
+        if (!playerCombat.isPunching)
         {
-            animator.SetBool("isWalking", false);
-            return;
+            moveVector.x = Input.GetAxisRaw("Horizontal");
+            moveVector.z = Input.GetAxisRaw("Vertical");
+
+
+            _rb.linearVelocity = moveVector * speed;
+            animator.SetBool("isWalking", true);
+            if (moveVector == Vector3.zero)
+            {
+                animator.SetBool("isWalking", false);
+                return;
+            }
+
+            targetAngle = Mathf.Atan2(moveVector.x, moveVector.z) * Mathf.Rad2Deg;
+            transform.rotation = Quaternion.Euler(0f, targetAngle, 0f);
         }
-        targetAngle = Mathf.Atan2(moveVector.x, moveVector.z) * Mathf.Rad2Deg;
-        transform.rotation = Quaternion.Euler(0f, targetAngle, 0f);
+        else
+        {
+            moveVector = Vector3.zero;
+            _rb.linearVelocity = Vector3.zero;
+        }
     }
 }

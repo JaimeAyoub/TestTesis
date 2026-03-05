@@ -24,7 +24,8 @@ public class EnemyHealth : MonoBehaviour
     {
         if (currentHealth > 0)
         {
-            anim.SetTrigger("HitTrigger");
+            anim.Play("Hit Reaction", -1, 0f);
+            
             if (damageTween != null && damageTween.IsPlaying())
             {
                 damageTween.Kill();

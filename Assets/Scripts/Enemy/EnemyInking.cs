@@ -6,7 +6,7 @@ using UnityEngine.VFX;
 public class EnemyInking : MonoBehaviour
 {
     public float amountOfInk = 0.0f;
-    private float _inkForDeath = 50.0f;
+    public float inkForDeath = 50.0f;
     public VisualEffect deathEffect;
     private Animator anim;
     //Aqui tendira que pasarle el shader y qye el amount of ink sea el que diga cuanto "manche" al enemigo.
@@ -25,17 +25,18 @@ public class EnemyInking : MonoBehaviour
 
     public void AddInk(float inkToAdd)
     {
-        if (amountOfInk < _inkForDeath)
+        if (amountOfInk < inkForDeath)
         {
-            anim.SetTrigger("HitTrigger");
+            anim.Play("Hit Reaction", -1, 0f);
+           
             amountOfInk += inkToAdd;
             SkinnedMeshRenderer skinnedMeshRenderer = GetComponentInChildren<SkinnedMeshRenderer>();
             if (skinnedMeshRenderer)
             {
-                skinnedMeshRenderer.material.SetFloat("_AmountOfInk", (amountOfInk / _inkForDeath)/100);
+                skinnedMeshRenderer.material.SetFloat("_AmountOfInk", (amountOfInk / inkForDeath)/100);
             }
 
-            if (amountOfInk >= _inkForDeath)
+            if (amountOfInk >= inkForDeath)
             {
                 InkDeath();
                 deathEffect.Play();

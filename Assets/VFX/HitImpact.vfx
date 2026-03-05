@@ -6127,7 +6127,7 @@ MonoBehaviour:
   m_UIPosition: {x: 0, y: 0}
   m_UICollapsed: 1
   m_UISuperCollapsed: 0
-  title: 
+  title: Destello
   m_Owners:
   - {fileID: 8926484042661615352}
   - {fileID: 8926484042661615418}
