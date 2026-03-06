@@ -57,20 +57,14 @@ public class PlayerCombat : MonoBehaviour
     {
         isPunching = false;
         attackCounter = 0;
-        animator.SetBool("isPunching", isPunching);
         animator.SetInteger("attackCounter", attackCounter);
+        animator.SetBool("isPunching", isPunching);
 
         Debug.Log("NO Golpeo");
     }
 
     public void SetPunchToTrue()
     {
-        if (attackCounter >= 3)
-        {
-            SetPunchToFalse();
-            return;
-        }
-
         isPunching = true;
 
         attackCounter++;
@@ -102,15 +96,11 @@ public class PlayerCombat : MonoBehaviour
     {
         if (isPunching && inputBuffer.Count == 0 && attackCounter < 3)
             inputBuffer.Add(KeyCode.Mouse0);
-        else
-        {
-            Debug.Log("Combo maximo");
-        }
     }
 
     public void ChecKAttackCounter()
     {
-        if (attackCounter <= 3)
+        if (attackCounter < 3)
         {
             SetPunchToTrue();
         }
