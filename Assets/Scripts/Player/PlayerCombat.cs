@@ -30,14 +30,6 @@ public class PlayerCombat : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (attackCounter > 3)
-        {
-            attackCounter = 0;
-            animator.SetBool("isPunching", false);
-            animator.SetInteger("attackCounter", attackCounter);
-            isPunching = false;
-        }
-
         Inputs();
         if (Input.GetKeyDown(KeyCode.L)) // Solo para testear.
         {
@@ -49,9 +41,14 @@ public class PlayerCombat : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
-            addToInputBuffer();
             if (!isPunching)
-                SetPunchToTrue();
+            {
+                ChecKAttackCounter();
+            }
+            else
+            {
+                addToInputBuffer();
+            }
         }
     }
 
@@ -62,10 +59,18 @@ public class PlayerCombat : MonoBehaviour
         attackCounter = 0;
         animator.SetBool("isPunching", isPunching);
         animator.SetInteger("attackCounter", attackCounter);
+
+        Debug.Log("NO Golpeo");
     }
 
     public void SetPunchToTrue()
     {
+        if (attackCounter >= 3)
+        {
+            SetPunchToFalse();
+            return;
+        }
+
         isPunching = true;
 
         attackCounter++;
@@ -73,26 +78,46 @@ public class PlayerCombat : MonoBehaviour
 
 
         animator.SetBool("isPunching", isPunching);
+
+        Debug.Log("Golpeo");
     }
 
 
     public void CheckInputBuffer()
     {
+        Debug.Log("CheckInputBuffer");
         if (inputBuffer.Count > 0)
         {
-            SetPunchToTrue();
+            ChecKAttackCounter();
             inputBuffer.Clear();
         }
         else
         {
             SetPunchToFalse();
+            inputBuffer.Clear();
         }
     }
 
     public void addToInputBuffer()
     {
-        if (isPunching && inputBuffer.Count == 0)
+        if (isPunching && inputBuffer.Count == 0 && attackCounter < 3)
             inputBuffer.Add(KeyCode.Mouse0);
+        else
+        {
+            Debug.Log("Combo maximo");
+        }
+    }
+
+    public void ChecKAttackCounter()
+    {
+        if (attackCounter <= 3)
+        {
+            SetPunchToTrue();
+        }
+        else
+        {
+            SetPunchToFalse();
+        }
     }
 
 

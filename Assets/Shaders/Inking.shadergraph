@@ -245,7 +245,7 @@
     },
     "m_PreviewData": {
         "serializedMesh": {
-            "m_SerializedMesh": "{\"mesh\":{\"fileID\":2203174296045351655,\"guid\":\"f1e8e1bfafe7fa241ba6b4181f3eba85\",\"type\":3}}",
+            "m_SerializedMesh": "{\"mesh\":{\"fileID\":2959467708922500008,\"guid\":\"81bb9eea30387e442899949a80011e55\",\"type\":3}}",
             "m_Guid": ""
         },
         "preventRotation": false
@@ -567,7 +567,7 @@
     "m_ShaderOutputName": "A",
     "m_StageCapability": 3,
     "m_Value": {
-        "e00": 0.10000000149011612,
+        "e00": 0.05000000074505806,
         "e01": 0.0,
         "e02": 0.0,
         "e03": 0.0,
@@ -843,7 +843,7 @@
     "m_Hidden": false,
     "m_PerRendererData": false,
     "m_customAttributes": [],
-    "m_Value": 0.0,
+    "m_Value": 0.009999999776482582,
     "m_FloatType": 1,
     "m_LiteralFloatMode": false,
     "m_RangeValues": {
@@ -1730,8 +1730,8 @@
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": -1001.0,
-            "y": -227.0,
+            "x": -882.0,
+            "y": -278.0,
             "width": 208.0,
             "height": 433.0
         }

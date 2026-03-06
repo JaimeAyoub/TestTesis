@@ -39,7 +39,7 @@ public class EnemyInking : MonoBehaviour
             if (amountOfInk >= inkForDeath)
             {
                 InkDeath();
-                deathEffect.Play();
+               // deathEffect.Play();
             }
         }
     }
@@ -47,9 +47,12 @@ public class EnemyInking : MonoBehaviour
     void InkDeath()
     {
             Sequence s = DOTween.Sequence();
-            s.Append(this.transform.DOScale(Vector3.zero, 1.0f))
-                .AppendCallback(() => deathEffect.SendEvent("OnPlay"))
-                .OnComplete(() => Destroy(this.gameObject));
+          //  s.Append(this.transform.DOScale(Vector3.zero, 1.0f))
+            //    .AppendCallback(() => deathEffect.SendEvent("OnPlay"))
+              //  .OnComplete(() => Destroy(this.gameObject));
+              
+              deathEffect.SendEvent("OnPlay");
+             // Destroy(gameObject);
 
       
     }
