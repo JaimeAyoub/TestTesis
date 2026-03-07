@@ -65,6 +65,7 @@ public class PlayerCombat : MonoBehaviour
 
     public void SetPunchToTrue()
     {
+        if (attackCounter >= 3) return;
         isPunching = true;
 
         attackCounter++;
@@ -80,15 +81,19 @@ public class PlayerCombat : MonoBehaviour
     public void CheckInputBuffer()
     {
         Debug.Log("CheckInputBuffer");
+
         if (inputBuffer.Count > 0)
         {
-            ChecKAttackCounter();
             inputBuffer.Clear();
+
+            if (attackCounter < 3)
+                SetPunchToTrue();
+            else
+                SetPunchToFalse();
         }
         else
         {
             SetPunchToFalse();
-            inputBuffer.Clear();
         }
     }
 
