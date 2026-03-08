@@ -17,6 +17,7 @@ public class Enemy : MonoBehaviour
         m_Agent = GetComponent<NavMeshAgent>();
         enemyAttack = GetComponent<EnemyAttack>();
         animator = GetComponent<Animator>();
+        Player = GameObject.FindGameObjectWithTag("Player");
     }
 
     void Update()
@@ -57,9 +58,9 @@ public class Enemy : MonoBehaviour
 
     IEnumerator WaitThenChase()
     {
-        isWaiting = true;                    // Bloquear nuevas corrutinas
+        isWaiting = true; // Bloquear nuevas corrutinas
         yield return new WaitForSeconds(2f); // Esperar en el main thread (seguro)
-        
+
         if (Player != null)
             m_Agent.SetDestination(Player.transform.position);
 

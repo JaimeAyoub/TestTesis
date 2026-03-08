@@ -1,5 +1,6 @@
+using System.Collections.Generic;
+using NUnit.Framework;
 using TMPro;
-
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.VFX;
@@ -19,8 +20,11 @@ public class GameManager : MonoBehaviour
     public Slider timeSlider;
 
     public Transform spawnEnemyPoint;
+
+    public VisualEffect inkDeathEffect;
     
-    public VisualEffect  inkDeathEffect;
+    public List<GameObject> spawnPoints = new List<GameObject>();
+
     private void Awake()
     {
         if (instance != null)
@@ -42,8 +46,8 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-      //  CheckTimer();
-        if(Input.GetKeyDown(KeyCode.P))
+        CheckTimer();
+        if (Input.GetKeyDown(KeyCode.P))
             SpawnEnemy();
     }
 
@@ -65,6 +69,7 @@ public class GameManager : MonoBehaviour
     float Formula(float combo)
     {
         float calculo = 1.0f + 0.5f * (combo / 20.0f);
+        Debug.Log("InkAmount multiplier" + calculo);
         return calculo;
     }
 
@@ -73,7 +78,7 @@ public class GameManager : MonoBehaviour
         if (currentCombo > 0 && timeToResetCombo >= 0)
         {
             timeSlider.value = timeToResetCombo;
-            timeToResetCombo -= Time.deltaTime;
+            timeToResetCombo -= 2 * Time.deltaTime;
         }
 
         if (timeToResetCombo <= 0.0f)
@@ -90,14 +95,17 @@ public class GameManager : MonoBehaviour
 
     public void SpawnEnemy()
     {
-        Instantiate(enemyObject, spawnEnemyPoint.transform.position, Quaternion.identity);
+        int random =  Random.Range(0, spawnPoints.Count);
+        
+        Instantiate(enemyObject, spawnPoints[random].transform.position, Quaternion.identity);
     }
 
     public void SpawnInkDeath(GameObject enemy)
     {
-        VisualEffect vfx = Instantiate(inkDeathEffect, enemy.transform.position,Quaternion.identity);
-        vfx.SetSkinnedMeshRenderer("EnemyMesh",enemy.GetComponentInChildren<SkinnedMeshRenderer>());
+        VisualEffect vfx = Instantiate(inkDeathEffect, enemy.transform.position, Quaternion.identity);
+        vfx.SetSkinnedMeshRenderer("EnemyMesh", enemy.GetComponentInChildren<SkinnedMeshRenderer>());
         vfx.SendEvent("OnPlay");
-        enemy.active = false;    
+        enemy.SetActive(false);
+        Destroy(enemy,1.0f);
     }
 }

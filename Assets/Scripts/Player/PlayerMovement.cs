@@ -37,6 +37,8 @@ public class PlayerMovement : MonoBehaviour
             moveVector.x = Input.GetAxisRaw("Horizontal");
             moveVector.z = Input.GetAxisRaw("Vertical");
 
+            moveVector.Normalize();
+
 
             _rb.linearVelocity = moveVector * speed;
             animator.SetBool("isWalking", true);

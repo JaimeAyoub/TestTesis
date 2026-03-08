@@ -108,7 +108,6 @@ public class HitBoxesGenerator : MonoBehaviour
 
                     if (collider.CompareTag("Enemy"))
                     {
-                     
                         // collider.GetComponent<EnemyHealth>().TakeDamage(1);
                         closestPoint = collider.ClosestPoint(impactLimb.position);
                         Vector3 resta = impactLimb.position - closestPoint;
@@ -117,17 +116,19 @@ public class HitBoxesGenerator : MonoBehaviour
                         Debug.Log("Angulo: " + angle);
 
                         Vector3 rot = Vector3.RotateTowards(
-                        impactLimb.position,
-                        closestPoint,
-                        1.0f * Time.deltaTime,
-                        0.0f
-                            );
-
-                        collider.GetComponent<EnemyInking>().AddInk(25.0f);
+                            impactLimb.position,
+                            closestPoint,
+                            1.0f * Time.deltaTime,
+                            0.0f
+                        );
                         CombatManager.instance.FreezeOnHit();
                         CombatManager.instance.CameraShake();
-                       CombatManager.instance.SpawnHitVFX(closestPoint, rot.y);
+                        CombatManager.instance.SpawnHitVFX(closestPoint, rot.y);
                         GameManager.instance.AddCombo();
+                        GameManager.instance.AddToTimer(0.5f);
+                        collider.GetComponent<EnemyInking>().AddInk(25.0f * GameManager.instance.currentMultiplier);
+
+                      
                     }
                 }
             }
@@ -142,10 +143,8 @@ public class HitBoxesGenerator : MonoBehaviour
 
     private void OnDrawGizmos()
     {
-    
         Gizmos.color = Color.yellow;
-        Gizmos.DrawSphere (closestPoint, 0.1f);
+        Gizmos.DrawSphere(closestPoint, 0.1f);
         Gizmos.DrawWireSphere(closestPoint, 0.1f);
-
     }
 }
