@@ -26,7 +26,7 @@ public class HitBoxesGenerator : MonoBehaviour
 
     void Start()
     {
-        layermask = LayerMask.GetMask("Enemy");
+        //layermask = LayerMask.GetMask("Enemy");
         limbsChosen.Clear();
     }
 
@@ -106,7 +106,7 @@ public class HitBoxesGenerator : MonoBehaviour
                     impactLimb = limbsChosen[1].transform;
 
 
-                    if (collider.CompareTag("Enemy"))
+                    if (collider.CompareTag("Enemy") && this.gameObject.CompareTag("Player"))
                     {
                         // collider.GetComponent<EnemyHealth>().TakeDamage(1);
                         closestPoint = collider.ClosestPoint(impactLimb.position);
@@ -127,10 +127,17 @@ public class HitBoxesGenerator : MonoBehaviour
                         GameManager.instance.AddCombo();
                         GameManager.instance.AddToTimer(0.5f);
                         collider.GetComponent<EnemyInking>().AddInk(25.0f * GameManager.instance.currentMultiplier);
+                    }
 
-                      
+                    if (collider.CompareTag("Player") &&  this.gameObject.CompareTag("Enemy"))
+                    {
+                        Debug.Log("COLISION A PLAYER");
+                        CombatManager.instance.FreezeOnHit();
+                        CombatManager.instance.CameraShake();
+                        collider.GetComponent<PlayerHealth>().TakeDamage(1);
                     }
                 }
+               
             }
 
             limbsChosen.Clear();

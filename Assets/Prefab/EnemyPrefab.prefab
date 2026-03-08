@@ -1747,6 +1747,8 @@ GameObject:
   - component: {fileID: 5417007594824509261}
   - component: {fileID: 2540018408472370916}
   - component: {fileID: 2723418729071155286}
+  - component: {fileID: 8247978344926935096}
+  - component: {fileID: -4557176052974808613}
   - component: {fileID: 7453405796746810144}
   - component: {fileID: 8793622238556266377}
   m_Layer: 6
@@ -1811,6 +1813,7 @@ MonoBehaviour:
   Player: {fileID: 0}
   isFollowing: 0
   animator: {fileID: 0}
+  attackDistance: 2
 --- !u!114 &2723418729071155286
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1826,6 +1829,50 @@ MonoBehaviour:
   amountOfInk: 0
   inkForDeath: 500
   deathEffect: {fileID: 0}
+--- !u!114 &8247978344926935096
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6730448341405729703}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 080bbb93d4ad02d4a8af400c1683f17a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyAttack
+  isAttacking: 0
+--- !u!114 &-4557176052974808613
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6730448341405729703}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 187590048aede9446a91bdc0435b3871, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::HitBoxesGenerator
+  leftArm:
+  - {fileID: 5207636168058053096}
+  - {fileID: 5612431002326415607}
+  rightArm:
+  - {fileID: 2082487513255524633}
+  - {fileID: 2664255090053128340}
+  leftLeg:
+  - {fileID: 3888195421838500755}
+  - {fileID: 6986611437648733267}
+  rightLeg:
+  - {fileID: 381998977385095486}
+  - {fileID: 739049008234025769}
+  limbsChosen: []
+  closestPoint: {x: 0, y: 0, z: 0}
+  impactLimb: {fileID: 0}
+  layermask:
+    serializedVersion: 2
+    m_Bits: 128
+  _chooseLimbs: 0
 --- !u!136 &7453405796746810144
 CapsuleCollider:
   m_ObjectHideFlags: 0

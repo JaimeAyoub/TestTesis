@@ -12,6 +12,8 @@ public class Enemy : MonoBehaviour
 
     private bool isWaiting = false; // ← Bandera para no spamear corrutinas
 
+    public float attackDistance;
+
     void Start()
     {
         m_Agent = GetComponent<NavMeshAgent>();
@@ -26,6 +28,8 @@ public class Enemy : MonoBehaviour
 
         CheckDistances();
         SetAnimations();
+        CheckAttack();
+        gameObject.transform.LookAt(Player.transform);
 
         if (isFollowing)
         {
@@ -42,13 +46,22 @@ public class Enemy : MonoBehaviour
     {
         if (m_Agent.pathPending) return;
 
-        isFollowing = m_Agent.remainingDistance > m_Agent.stoppingDistance;
+        isFollowing = m_Agent.remainingDistance > m_Agent.stoppingDistance
+                      && m_Agent.remainingDistance > attackDistance;
     }
 
     void CheckAttack()
     {
-        if (m_Agent.remainingDistance <= 2)
+        if (m_Agent.pathPending) return;
+
+       // Debug.Log(m_Agent.remainingDistance);
+        if (m_Agent.remainingDistance <= attackDistance)
             enemyAttack.Attack();
+        else
+        {
+            EnemyAttack enemyAttack = GetComponent<EnemyAttack>();
+            enemyAttack.isAttacking =  false;
+        }
     }
 
     void SetAnimations()

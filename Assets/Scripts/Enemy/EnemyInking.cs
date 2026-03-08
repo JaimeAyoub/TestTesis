@@ -47,5 +47,6 @@ public class EnemyInking : MonoBehaviour
     void InkDeath()
     {
         GameManager.instance.SpawnInkDeath(this.gameObject);
+        GameManager.instance.SpawnEnemy();
     }
 }

@@ -1,43 +1,35 @@
 using System.Collections;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 
 public class EnemyAttack : MonoBehaviour
 {
-    private NavMeshAgent _agent;
-    private float attackCooldown = 0.5f;
-    private float attackOffCooldown = 1.0f;
-
-    private float attackTime;
+    private Animator anim;
     public bool isAttacking = false;
-
-
-    public BoxCollider attackCollider;
 
     void Start()
     {
-        _agent = GetComponent<NavMeshAgent>();
-    }
-
-    void Update()
-    {
+        anim = GetComponent<Animator>(); // ← Cachear, no buscar cada frame
     }
 
     public void Attack()
     {
-        if ((Time.time - attackTime) > attackCooldown && !isAttacking)
-        {
-            attackCollider.gameObject.SetActive(true);
-            attackTime = Time.time;
-            isAttacking = true;
-        }
+        if (isAttacking) return; // ← Si ya está atacando, ignorar
+        StartCoroutine(AttackRoutine());
+    }
 
-        if (isAttacking && (Time.time - attackTime) > attackOffCooldown)
-        {
-            attackCollider.gameObject.SetActive(false);
-            attackTime = Time.time;
-            isAttacking = false;
-        }
+    IEnumerator AttackRoutine()
+    {
+        isAttacking = true;
+        anim.SetBool("isAttacking", true);
+
+        // Esperar que termine la animación de ataque
+        yield return new WaitUntil(() => 
+            anim.GetCurrentAnimatorStateInfo(0).IsName("Attack")); // ← Nombre de tu estado en el Animator
+        yield return new WaitUntil(() => 
+            anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f);
+
+        isAttacking = false;
+        anim.SetBool("isAttacking", false);
     }
 }
