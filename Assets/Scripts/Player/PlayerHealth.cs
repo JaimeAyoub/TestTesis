@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerHealth : MonoBehaviour
 {
@@ -15,6 +16,8 @@ public class PlayerHealth : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(Input.GetKeyDown(KeyCode.K))
+            Death();
     }
 
     public void TakeDamage(int damage)
@@ -23,7 +26,7 @@ public class PlayerHealth : MonoBehaviour
         {
             currentHealth -= damage;
         }
-        else if(currentHealth <= 0)
+        if(currentHealth <= 0)
         {
             Death();
         }
@@ -31,6 +34,6 @@ public class PlayerHealth : MonoBehaviour
 
     public void Death()
     {
-        Debug.Log("Death");
+        SceneManager.LoadSceneAsync(0);
     }
 }

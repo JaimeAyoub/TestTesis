@@ -125,7 +125,7 @@ public class HitBoxesGenerator : MonoBehaviour
                         CombatManager.instance.CameraShake();
                         CombatManager.instance.SpawnHitVFX(closestPoint, rot.y);
                         GameManager.instance.AddCombo();
-                        GameManager.instance.AddToTimer(0.5f);
+                        GameManager.instance.AddToTimer(0.50f);
                         collider.GetComponent<EnemyInking>().AddInk(25.0f * GameManager.instance.currentMultiplier);
                     }
 

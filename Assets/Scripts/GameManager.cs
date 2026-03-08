@@ -27,10 +27,14 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
-        if (instance != null)
-            Destroy(this);
-        else
+        if (instance == null)
+        {
             instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
 
         DontDestroyOnLoad(gameObject);
     }
@@ -108,4 +112,6 @@ public class GameManager : MonoBehaviour
         enemy.SetActive(false);
         Destroy(enemy,1.0f);
     }
+    
+    
 }

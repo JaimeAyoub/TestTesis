@@ -31,5 +31,6 @@ public class EnemyAttack : MonoBehaviour
 
         isAttacking = false;
         anim.SetBool("isAttacking", false);
+        
     }
 }

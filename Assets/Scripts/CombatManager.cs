@@ -34,15 +34,19 @@ public class CombatManager : MonoBehaviour
         }
 
         DontDestroyOnLoad(gameObject);
-
-        if (cinemachine != null)
-        {
-            noise = cinemachine.GetComponent<CinemachineBasicMultiChannelPerlin>();
-        }
     }
 
     void Start()
     {
+        if (cinemachine == null)
+            cinemachine = FindAnyObjectByType<CinemachineVirtualCameraBase>();
+        if (cinemachine != null)
+        {
+            noise = cinemachine.GetComponent<CinemachineBasicMultiChannelPerlin>();
+        }
+
+        if (Player == null)
+            Player = GameObject.FindGameObjectWithTag("Player");
     }
 
     void Update()
@@ -58,6 +62,13 @@ public class CombatManager : MonoBehaviour
 
     public async Awaitable CameraShake()
     {
+        if (cinemachine == null)
+            cinemachine = FindAnyObjectByType<CinemachineVirtualCameraBase>();
+        if (cinemachine != null)
+        {
+            noise = cinemachine.GetComponent<CinemachineBasicMultiChannelPerlin>();
+        }
+
         noise.AmplitudeGain = amplitudeCameraShake;
         noise.FrequencyGain = intensityCameraShake;
         await Task.Delay((int)(shakeTimer * 1000));
@@ -65,22 +76,24 @@ public class CombatManager : MonoBehaviour
         noise.FrequencyGain = 0;
     }
 
-    public void SpawnHitVFX(Vector3 position,float rotation)
+    public void SpawnHitVFX(Vector3 position, float rotation)
     {
         if (hitVFX != null)
         {
-            VisualEffect vfx = Instantiate(hitVFX, position,Quaternion.identity);
+            VisualEffect vfx = Instantiate(hitVFX, position, Quaternion.identity);
 
             //Debug.Log(position);
             // rotation = Mathf.Deg2Rad * rotation;
-            Vector3 newTarget = new Vector3(Player.transform.position.x, 
-                vfx.gameObject.transform.position.y, Player.transform.position.z);
-           vfx.gameObject.transform.LookAt(newTarget);
-            //vfx.SetFloat("AngleFloat", rotation);
-          //  vfx.SetVector3("Angle",rotation);
-            vfx.SendEvent("OnPlay");
-            Destroy(vfx.gameObject,2.0f);
 
+            if (Player == null)
+                Player = GameObject.FindGameObjectWithTag("Player");
+            Vector3 newTarget = new Vector3(Player.transform.position.x,
+                vfx.gameObject.transform.position.y, Player.transform.position.z);
+            vfx.gameObject.transform.LookAt(newTarget);
+            //vfx.SetFloat("AngleFloat", rotation);
+            //  vfx.SetVector3("Angle",rotation);
+            vfx.SendEvent("OnPlay");
+            Destroy(vfx.gameObject, 2.0f);
         }
         else
         {
