@@ -2,6 +2,7 @@ using TMPro;
 
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.VFX;
 
 
 public class GameManager : MonoBehaviour
@@ -18,6 +19,8 @@ public class GameManager : MonoBehaviour
     public Slider timeSlider;
 
     public Transform spawnEnemyPoint;
+    
+    public VisualEffect  inkDeathEffect;
     private void Awake()
     {
         if (instance != null)
@@ -88,5 +91,13 @@ public class GameManager : MonoBehaviour
     public void SpawnEnemy()
     {
         Instantiate(enemyObject, spawnEnemyPoint.transform.position, Quaternion.identity);
+    }
+
+    public void SpawnInkDeath(GameObject enemy)
+    {
+        VisualEffect vfx = Instantiate(inkDeathEffect, enemy.transform.position,Quaternion.identity);
+        vfx.SetSkinnedMeshRenderer("EnemyMesh",enemy.GetComponentInChildren<SkinnedMeshRenderer>());
+        vfx.SendEvent("OnPlay");
+        enemy.active = false;    
     }
 }

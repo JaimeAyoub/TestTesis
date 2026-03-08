@@ -1,20 +1,17 @@
 using UnityEngine;
 using UnityEngine.AI;
-using System.Threading.Tasks;
+using System.Collections;
 
 public class Enemy : MonoBehaviour
 {
     private NavMeshAgent m_Agent;
-
     public GameObject Player;
-
     private EnemyAttack enemyAttack;
-
     public bool isFollowing = false;
-
     public Animator animator;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    private bool isWaiting = false; // ← Bandera para no spamear corrutinas
+
     void Start()
     {
         m_Agent = GetComponent<NavMeshAgent>();
@@ -22,22 +19,23 @@ public class Enemy : MonoBehaviour
         animator = GetComponent<Animator>();
     }
 
-    // Update is called once per frame
     void Update()
     {
+        if (Player == null) return;
+
         CheckDistances();
-        setAnimations();
+        SetAnimations();
 
-        if (Player != null)
+        if (isFollowing)
         {
-            if (isFollowing)
-                m_Agent.SetDestination(Player.transform.position);
-            else
-                WaitForChasing();   
-
+            isWaiting = false; // Si empieza a seguir, cancelamos estado de espera
+            m_Agent.SetDestination(Player.transform.position);
+        }
+        else if (!isWaiting) // ← Solo lanza la corrutina si no hay una activa
+        {
+            StartCoroutine(WaitThenChase());
         }
     }
-
 
     void CheckDistances()
     {
@@ -49,23 +47,22 @@ public class Enemy : MonoBehaviour
     void CheckAttack()
     {
         if (m_Agent.remainingDistance <= 2)
-        {
-            // Debug.Log("Ataque");
             enemyAttack.Attack();
-        }
     }
 
-
-    void setAnimations()
+    void SetAnimations()
     {
         animator.SetBool("isWalking", isFollowing);
     }
 
-    public async Awaitable WaitForChasing()
+    IEnumerator WaitThenChase()
     {
-        await Task.Delay((int)(2 * 1000));
-        m_Agent.SetDestination(Player.transform.position);
+        isWaiting = true;                    // Bloquear nuevas corrutinas
+        yield return new WaitForSeconds(2f); // Esperar en el main thread (seguro)
         
+        if (Player != null)
+            m_Agent.SetDestination(Player.transform.position);
+
+        isWaiting = false; // Liberar para la próxima vez
     }
-    
 }

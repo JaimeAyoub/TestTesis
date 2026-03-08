@@ -238,7 +238,7 @@ MonoBehaviour:
   - {fileID: 8926484042661617234}
   - {fileID: 8926484042661617964}
   - {fileID: 8926484042661617392}
-  m_UIPosition: {x: 1571, y: -556}
+  m_UIPosition: {x: 1570, y: -557}
   m_UICollapsed: 0
   m_UISuperCollapsed: 0
   m_InputSlots:
@@ -755,7 +755,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: UnityEditor.VFX.AABox, Unity.VisualEffectGraph.Editor,
           Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-      m_SerializableObject: '{"center":{"x":0.0,"y":1.5800000429153443,"z":0.0},"size":{"x":1.0,"y":1.340000033378601,"z":1.0}}'
+      m_SerializableObject: '{"center":{"x":-0.6215754747390747,"y":1.5799996852874756,"z":-0.9477019309997559},"size":{"x":9.735918045043946,"y":1.340000033378601,"z":16.20797348022461}}'
     m_Space: 0
   m_Property:
     name: bounds
@@ -6421,7 +6421,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
           PublicKeyToken=b77a5c561934e089
-      m_SerializableObject: 0.5
+      m_SerializableObject: 2.55
     m_Space: -1
   m_Property:
     name: _Size

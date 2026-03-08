@@ -28,7 +28,7 @@ public class EnemyInking : MonoBehaviour
         if (amountOfInk < inkForDeath)
         {
             anim.Play("Hit Reaction", -1, 0f);
-           
+
             amountOfInk += inkToAdd;
             SkinnedMeshRenderer skinnedMeshRenderer = GetComponentInChildren<SkinnedMeshRenderer>();
             if (skinnedMeshRenderer)
@@ -39,21 +39,13 @@ public class EnemyInking : MonoBehaviour
             if (amountOfInk >= inkForDeath)
             {
                 InkDeath();
-               // deathEffect.Play();
+                // deathEffect.Play();
             }
         }
     }
 
     void InkDeath()
     {
-            Sequence s = DOTween.Sequence();
-          //  s.Append(this.transform.DOScale(Vector3.zero, 1.0f))
-            //    .AppendCallback(() => deathEffect.SendEvent("OnPlay"))
-              //  .OnComplete(() => Destroy(this.gameObject));
-              
-              deathEffect.SendEvent("OnPlay");
-             // Destroy(gameObject);
-
-      
+        GameManager.instance.SpawnInkDeath(this.gameObject);
     }
 }
