@@ -6,11 +6,14 @@ public class PlayerHealth : MonoBehaviour
     public int maxHealth = 5;
 
     public int currentHealth;
+    
+    public bool isDead;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         currentHealth = maxHealth;
+        isDead = false;
     }
 
     // Update is called once per frame
@@ -34,6 +37,8 @@ public class PlayerHealth : MonoBehaviour
 
     public void Death()
     {
+        isDead = true;
+ 
         SceneManager.LoadSceneAsync(0);
     }
 }

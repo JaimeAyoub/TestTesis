@@ -1,4 +1,3 @@
-
 using UnityEngine;
 
 
@@ -10,6 +9,7 @@ public class PlayerMovement : MonoBehaviour
     public float targetAngle;
     public Animator animator;
     private PlayerCombat playerCombat;
+    private PlayerHealth playerHealth;
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -22,6 +22,11 @@ public class PlayerMovement : MonoBehaviour
         {
             playerCombat = GetComponent<PlayerCombat>();
         }
+
+        if (playerHealth == null)
+        {
+            playerHealth = GetComponent<PlayerHealth>();
+        }
     }
 
     // Update is called once per frame
@@ -32,7 +37,7 @@ public class PlayerMovement : MonoBehaviour
 
     void MoveAndRotate()
     {
-        if (!playerCombat.isPunching)
+        if (!playerCombat.isPunching && !playerHealth.isDead)
         {
             moveVector.x = Input.GetAxisRaw("Horizontal");
             moveVector.z = Input.GetAxisRaw("Vertical");

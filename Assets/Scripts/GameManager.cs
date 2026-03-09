@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using NUnit.Framework;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using UnityEngine.VFX;
 
@@ -22,8 +23,10 @@ public class GameManager : MonoBehaviour
     public Transform spawnEnemyPoint;
 
     public VisualEffect inkDeathEffect;
-    
+
     public List<GameObject> spawnPoints = new List<GameObject>();
+
+    public GameObject Player;
 
     private void Awake()
     {
@@ -45,6 +48,7 @@ public class GameManager : MonoBehaviour
             comboNumberText.text = currentCombo.ToString();
         timeSlider.maxValue = maxTimeToResetCombo;
         timeSlider.value = timeToResetCombo;
+        ResetGame();
     }
 
     // Update is called once per frame
@@ -99,8 +103,8 @@ public class GameManager : MonoBehaviour
 
     public void SpawnEnemy()
     {
-        int random =  Random.Range(0, spawnPoints.Count);
-        
+        int random = Random.Range(0, spawnPoints.Count);
+
         Instantiate(enemyObject, spawnPoints[random].transform.position, Quaternion.identity);
     }
 
@@ -110,8 +114,24 @@ public class GameManager : MonoBehaviour
         vfx.SetSkinnedMeshRenderer("EnemyMesh", enemy.GetComponentInChildren<SkinnedMeshRenderer>());
         vfx.SendEvent("OnPlay");
         enemy.SetActive(false);
-        Destroy(enemy,1.0f);
+        Destroy(enemy, 1.0f);
     }
-    
-    
+
+    public void ResetGame()
+    {
+        currentCombo = 0;
+        comboNumberText.text = currentCombo.ToString();
+        timeToResetCombo = 0;
+        timeSlider.value = timeToResetCombo;
+
+        if (Player == null)
+        {
+            Player = GameObject.FindWithTag("Player");
+        }
+
+        Player.transform.position = spawnPoints[3].transform.position;
+        PlayerHealth playerHealth = Player.GetComponent<PlayerHealth>();
+        playerHealth.isDead = false;
+        playerHealth.currentHealth = playerHealth.maxHealth;
+    }
 }

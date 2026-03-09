@@ -3,10 +3,9 @@ using UnityEngine.SceneManagement;
 
 public class UIManager : MonoBehaviour
 {
-    
     public GameObject mainMenu;
     public GameObject controlesMenu;
-    
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -17,7 +16,6 @@ public class UIManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
     }
 
     public void ChangeToControles()
@@ -25,15 +23,18 @@ public class UIManager : MonoBehaviour
         mainMenu.SetActive(false);
         controlesMenu.SetActive(true);
     }
-    
+
     public void ChangeToMainMenu()
     {
         mainMenu.SetActive(true);
         controlesMenu.SetActive(false);
     }
-    
+
     public void StartGame()
     {
+        if (GameManager.instance)
+            GameManager.instance.ResetGame();
+
         SceneManager.LoadSceneAsync(1);
     }
 }
